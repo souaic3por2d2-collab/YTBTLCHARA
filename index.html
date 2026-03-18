@@ -189,14 +189,15 @@ async function summon(idx) {
   const atk = statFrom(vid, 'atk');
   const def = statFrom(vid, 'def');
   const luk = statFrom(vid, 'luk');
-  const charImg = randomImageUrl();
-
   let thumb = '';
   let title = '';
   try {
     const res = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${vid}&format=json`);
     if (res.ok) { const d = await res.json(); thumb = d.thumbnail_url || ''; title = d.title || ''; }
   } catch {}
+
+  // サムネ取得失敗時はモンスター画像を使用
+  const charImg = thumb ? '' : randomImageUrl();
 
   state[idx-1] = { vid, url, name: makeName(vid), hp, maxHp: hp, atk, def, luk, thumb, charImg, title };
   renderCard(idx);
@@ -213,11 +214,7 @@ function renderCard(idx) {
 
   let imgHtml;
   if (f.thumb) {
-    imgHtml = `
-      <div class="img-row">
-        <img class="thumb" src="${f.thumb}" alt="" onerror="this.style.display='none'">
-        <img src="${f.charImg}" alt="" onerror="this.style.display='none'">
-      </div>`;
+    imgHtml = `<img class="thumb-solo" style="aspect-ratio:16/9;" src="${f.thumb}" alt="" onerror="this.style.display='none'">`;
   } else {
     imgHtml = `<img class="thumb-solo" src="${f.charImg}" alt="" onerror="this.style.display='none'">`;
   }
