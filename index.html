@@ -241,7 +241,7 @@ function renderCard(idx) {
 
   document.getElementById('c' + idx).innerHTML = `
     ${imgHtml}
-    <div class="fighter-name">${(f.title || f.url).slice(0, 20)}</div>
+    <div class="fighter-name">${(f.title || f.url).slice(0, 40)}</div>
     <div class="bars">
       <div class="bar-row"><div class="bar-label">HP</div><div class="bar-track"><div class="bar-fill hp" id="hpbar${idx}" style="width:${hpPct}%"></div></div><div class="bar-val" id="hpval${idx}">${Math.max(0,f.hp)}</div></div>
       <div class="bar-row"><div class="bar-label">ATK</div><div class="bar-track"><div class="bar-fill atk" style="width:${f.atk}%"></div></div><div class="bar-val">${f.atk}</div></div>
